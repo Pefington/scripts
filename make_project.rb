@@ -46,7 +46,7 @@ def execute
   create_gemfile
   system('touch app.rb')
   system('rspec --init')
-  system("cd #{folder_name}")
+  system('code .')
   system('bundle install')
 end
 
