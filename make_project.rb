@@ -44,7 +44,10 @@ def execute
   change_folder(folder_name)
   create_folder('./lib')
   create_gemfile
+  system('touch app.rb')
   system('rspec --init')
+  system("cd #{folder_name}")
+  system('bundle install')
 end
 
 execute
