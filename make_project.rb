@@ -1,4 +1,4 @@
-def check_if_user_gave_input
+def input_check
   abort('mkdir: missing input') if ARGV.empty?
 end
 
@@ -11,7 +11,7 @@ def source
 end
 
 def gems
-  ["gem 'rspec'", "gem 'rubocop'", "gem 'rubocop-rspec'", "gem 'solargraph'"]
+  ["gem 'bundler'", "gem 'rspec'", "gem 'rubocop'", "gem 'rubocop-rspec'", "gem 'solargraph'"]
 end
 
 def extra_gems
@@ -38,15 +38,29 @@ def create_gemfile
   File.write('Gemfile', gemfile)
 end
 
+def app
+  app = []
+  app << "require 'bundler'"
+  app << 'Bundler.require'
+  app << ''
+  app << "$LOAD_PATH.unshift File.expand_path('lib', __dir__)"
+  app.join("\n")
+end
+
+def create_app
+  system('touch app.rb')
+  File.write('app.rb', app)
+end
+
 def execute
-  check_if_user_gave_input
+  input_check
   create_folder(folder_name)
   change_folder(folder_name)
   create_folder('./lib')
+  create_folder('./db')
+  create_app
   create_gemfile
-  system('touch app.rb')
   system('rspec --init')
-  system('code .')
   system('bundle install')
 end
 
