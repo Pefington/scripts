@@ -52,6 +52,13 @@ def create_app
   File.write('app.rb', app)
 end
 
+def system_commands
+  system('rspec --init')
+  system('bundle install')
+  system('git init')
+  system('git add .')
+end
+
 def execute
   input_check
   create_folder(folder_name)
@@ -60,8 +67,7 @@ def execute
   create_folder('./db')
   create_app
   create_gemfile
-  system('rspec --init')
-  system('bundle install')
+  system_commands
 end
 
 execute
