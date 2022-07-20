@@ -57,6 +57,7 @@ def system_commands
   system('bundle install')
   system('git init')
   system('git add .')
+  system('touch README.md')
 end
 
 def execute
